@@ -19,6 +19,8 @@ const App = () => {
         <div>
             <BrowserRouter>
                 <div>
+                    {/* React Router cares only after the part of the url following the port/site definition */}
+                    {/* Chooses to hide/show the component that matches the path definition */}
                     <Route path = "/" exact component={PageOne}/>
                     <Route path = "/pagetwo" component={PageTwo}/>
                 </div>
