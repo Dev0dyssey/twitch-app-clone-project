@@ -9,6 +9,7 @@ import StreamShow from './streams/StreamShow';
 const App = () => {
     return (
         <div>
+            {/* Any code placed outside of the <BrowserHeader /> will always be visible irrespective of the route */}
             <h1>Header!</h1>
             <BrowserRouter>
                 <div>
