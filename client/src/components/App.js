@@ -9,6 +9,7 @@ import StreamShow from './streams/StreamShow';
 const App = () => {
     return (
         <div>
+            <h1>Header!</h1>
             <BrowserRouter>
                 <div>
                     {/* React Router cares only after the part of the url following the port/site definition */}
