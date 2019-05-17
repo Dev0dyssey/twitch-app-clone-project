@@ -1,6 +1,10 @@
 import React from 'react';
 
 class GoogleAuth extends React.Component {
+    // Reason from isSignedIn: null - we do not know whether the use is or is not signed in
+    state = { isSignedIn: null };
+
+
     componentDidMount() {
         // We need to load the specific part of the gapi library. In this case we are using the client authentication part
         window.gapi.load('client:auth2', () =>{
@@ -9,12 +13,27 @@ class GoogleAuth extends React.Component {
                 clientId: '917601408536-3im2hkuhhntq9oajrc392jq8s6o9tt0c.apps.googleusercontent.com',
                 // Need to define the scope; what parts of the user profile/account we want access to
                 scope: 'email'
+            }).then(()=> {
+                // Reference to the auth object (from the gapi)
+                this.auth = window.gapi.auth2.getAuthInstance();
+                // Component level state to declare whether the user is logged in
+                this.setState({ isSignedIn: this.auth.isSignedIn.get() })
             });
         });
     }
 
+    renderAuthButton() {
+        if(this.state.isSignedIn === null){
+            return <div>I do not know if we are signed in</div>;
+        } else if(this.state.isSignedIn) {
+            return <div>I am signed in!</div>
+        } else {
+            return <div>I am not signed in</div>
+        }
+    }
+
     render(){
-        return<div>GoogleAuth</div>
+        return <div>{this.renderAuthButton()}</div>
     }
 }
 
