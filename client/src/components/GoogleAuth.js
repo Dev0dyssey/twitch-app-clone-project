@@ -4,7 +4,6 @@ class GoogleAuth extends React.Component {
     // Reason from isSignedIn: null - we do not know whether the use is or is not signed in
     state = { isSignedIn: null };
 
-
     componentDidMount() {
         // We need to load the specific part of the gapi library. In this case we are using the client authentication part
         window.gapi.load('client:auth2', () =>{
@@ -17,10 +16,17 @@ class GoogleAuth extends React.Component {
                 // Reference to the auth object (from the gapi)
                 this.auth = window.gapi.auth2.getAuthInstance();
                 // Component level state to declare whether the user is logged in
-                this.setState({ isSignedIn: this.auth.isSignedIn.get() })
+                this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+                // Listens to any changes made to isSignedIn and call the onAuthChange()
+                this.auth.isSignedIn.listen(this.onAuthChange);
             });
         });
     }
+    // Helper function that sets the isSignedIn state
+    onAuthChange = () => {
+        // Retrieved from the auth object declared in componentDidMount()
+        this.setState({isSignedIn: this.auth.isSignedIn.get() });
+    };
 
     renderAuthButton() {
         if(this.state.isSignedIn === null){
