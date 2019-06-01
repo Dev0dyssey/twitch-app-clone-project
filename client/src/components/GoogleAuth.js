@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { signIn, signOut } from '../actions/index';
 
 class GoogleAuth extends React.Component {
-    // Reason from isSignedIn: null - we do not know whether the use is or is not signed in
-    state = { isSignedIn: null };
 
     componentDidMount() {
         // We need to load the specific part of the gapi library. In this case we are using the client authentication part
@@ -15,17 +15,22 @@ class GoogleAuth extends React.Component {
             }).then(()=> {
                 // Reference to the auth object (from the gapi)
                 this.auth = window.gapi.auth2.getAuthInstance();
-                // Component level state to declare whether the user is logged in
-                this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+                // Update of Redux store based on whether the use is signed in or not
+                this.onAuthChange(this.auth.isSignedIn.get());
                 // Listens to any changes made to isSignedIn and call the onAuthChange()
                 this.auth.isSignedIn.listen(this.onAuthChange);
             });
         });
     }
     // Helper function that sets the isSignedIn state
-    onAuthChange = () => {
-        // Retrieved from the auth object declared in componentDidMount()
-        this.setState({isSignedIn: this.auth.isSignedIn.get() });
+    // Returns a boolean true/false, can be passed as an argument of the function (isSignedIn)
+    onAuthChange = (isSignedIn) => {
+        // If statement to determine whether the use is signed in or not. Retrieved from the gapi
+        if (isSignedIn) {
+            this.props.signIn();
+        } else {
+            this.props.signOut();
+        }
     };
 
     // Helper methods to handle Sign In and Sign Out when button is clicked
@@ -39,9 +44,10 @@ class GoogleAuth extends React.Component {
     };
 
     renderAuthButton() {
-        if(this.state.isSignedIn === null){
+        // The value of isSignedIn is coming from the Redux store which is passed on the .props; reason fro this.props.isSignedIn
+        if(this.props.isSignedIn === null){
             return null;
-        } else if(this.state.isSignedIn) {
+        } else if(this.props.isSignedIn) {
             return (
                     <button onClick = {this.onSignOutClick} className = "ui red google button">
                         <i className = "google icon" />
@@ -63,4 +69,8 @@ class GoogleAuth extends React.Component {
     }
 }
 
-export default GoogleAuth;
+const mapStateToProps = (state) => {
+    return { isSignedIn: state.auth.isSignedIn };
+};
+
+export default connect(mapStateToProps, { signIn, signOut })(GoogleAuth);
