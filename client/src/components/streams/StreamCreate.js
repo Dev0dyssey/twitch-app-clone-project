@@ -2,16 +2,31 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 class StreamCreate extends React.Component {
+    // Helper method to show Error messages on touch when input field was selected but clicked out afterwards
+    // Error, touched; destructured from the this.renderError(meta) call. The meta object is passed in this call and destructured
+    renderError({error, touched}) {
+        if (touched && error) {
+            return (
+                <div className = "ui error message">
+                    <div className = "header">
+                        {error}
+                    </div>
+                </div>
+            );
+        }
+    }
     // Controlled element! 
     // Helper function to help with rendering the correct Field type inside the Redux Form (i.e input)
     // Destructure input and other properties out of the input object (formProps before)
-    renderInput({input, label, meta}) {
+    renderInput = ({input, label, meta}) => {
+        // Determine highligh of the input field if no input provided (changes the class name to 'field error', otherwise assigns only 'field' as the className)
+        const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
         // {...formProps.input; takes all of the input properties and assigns them as props to the <input/> element}
         return (
-            <div className = "field">
+            <div className = {className}>
                 <label>{label}</label>
-                <input {...input}/>
-                <div>{meta.error}</div>
+                <input {...input} autoComplete = "off" />
+                {this.renderError(meta)}
             </div>
         );
     }
@@ -25,7 +40,8 @@ class StreamCreate extends React.Component {
             // this.props.handleSubmit; coming from Redux form - handSubmit provided as a prop inside the prop object. Console.log(this.props) to see all methods on Redux form object
             // Handles event.preventDefault() automatically. We do not need to pass onSubmit() with an event object/argument
             // Will instead be called with the values contained inside of the field inputs
-            <form onSubmit = {this.props.handleSubmit(this.onSubmit)} className = "ui form">
+            // Semantic UI; must include className "error" on the form, otherwise the error message is not displayed
+            <form onSubmit = {this.props.handleSubmit(this.onSubmit)} className = "ui form error">
                 {/* Use <Field /> component anytime you want to use a field inside the form (text, checkbox, dropdown, etc) */}
                 {/* name = REQUIRED; name of the property the field will manage */}
                 {/* component = tells the component what is going to be shown on the screen; how to render it (usually done with a helper function). Without it an error message is thrown */}
