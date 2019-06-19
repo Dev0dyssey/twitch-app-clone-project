@@ -33,8 +33,8 @@ class StreamCreate extends React.Component {
         );
     }
 
-    onSubmit(formValues) {
-        console.log(formValues);
+    onSubmit = (formValues) => {
+        this.props.createStream(formValues)
     }
 
     render() {
@@ -71,10 +71,12 @@ const validate = (formValues) => {
 };
 
 // Almost same syntax with Redux Form as the connect()() method
-export default reduxForm({
+const formWrapped = reduxForm({
     // Will contain configuration of the Redux Form (Configuration Object)
     // Form: <name> usually descriptive of what the form does/captures
     // This passes a large amount of new props to the component
     form: 'streamCreate',
     validate
 })(StreamCreate);
+
+export default connect(null, { createStream })(formWrapped);
