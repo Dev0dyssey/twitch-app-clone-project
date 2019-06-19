@@ -44,7 +44,7 @@ class GoogleAuth extends React.Component {
     };
 
     renderAuthButton() {
-        // The value of isSignedIn is coming from the Redux store which is passed on the .props; reason fro this.props.isSignedIn
+        // The value of isSignedIn is coming from the Redux store which is passed on the .props; reason for this.props.isSignedIn
         if(this.props.isSignedIn === null){
             return null;
         } else if(this.props.isSignedIn) {
