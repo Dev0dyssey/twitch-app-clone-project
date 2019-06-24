@@ -1,9 +1,20 @@
 {
   "streams": [
     {
-      "title": "This is a new Stream",
-      "test": "This is a new Description",
+      "title": "This is a test Title Stream #1",
+      "description": "Testing Description #1",
       "id": 1
+    },
+    {
+      "title": "Another Stream Test",
+      "description": "Description test",
+      "id": 2
+    },
+    {
+      "title": "Stream with UserId",
+      "description": "UserId description",
+      "userId": "105071312514438944624",
+      "id": 3
     }
   ]
 }

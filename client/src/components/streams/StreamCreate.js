@@ -48,7 +48,7 @@ class StreamCreate extends React.Component {
                 {/* name = REQUIRED; name of the property the field will manage */}
                 {/* component = tells the component what is going to be shown on the screen; how to render it (usually done with a helper function). Without it an error message is thrown */}
                 <Field name = "title" component = {this.renderInput} label = "Enter Title"/>
-                <Field name = "test" component = {this.renderInput} label = "Enter Description"/>
+                <Field name = "description" component = {this.renderInput} label = "Enter Description"/>
                 <button className = "ui button primary">Submit</button>
             </form>
         );
