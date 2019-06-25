@@ -1,4 +1,5 @@
 import streams from '../apis/streams';
+import history from '../history';
 import { 
     SIGN_IN, 
     SIGN_OUT, 
@@ -30,6 +31,10 @@ export const createStream = formValues =>  async (dispatch, getState) => {
     const response =  await streams.post('/streams', { ...formValues, userId });
 
     dispatch({type: CREATE_STREAM, payload: response.data});
+    // Do some programmatic navigation to get user back to the Root Route (Showing list of Streams to the User)
+    // Navigate using history.push('<path>'); this tells the App where to navigate the customer
+    history.push('/');
+
 };
 
 // Dispatch: a thunk function, coming from redux-thunk
