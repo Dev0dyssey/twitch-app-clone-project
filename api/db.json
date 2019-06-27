@@ -6,11 +6,6 @@
       "id": 1
     },
     {
-      "title": "Another Stream Test",
-      "description": "Description test",
-      "id": 2
-    },
-    {
       "title": "Stream with UserId",
       "description": "UserId description",
       "userId": "105071312514438944624",
