@@ -69,7 +69,7 @@ const validate = (formValues) => {
 };
 
 // Almost same syntax with Redux Form as the connect()() method
-expor default reduxForm({
+export default reduxForm({
     // Will contain configuration of the Redux Form (Configuration Object)
     // Form: <name> usually descriptive of what the form does/captures
     // This passes a large amount of new props to the component

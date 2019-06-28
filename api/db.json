@@ -16,6 +16,12 @@
       "description": "You should not see this on the form page!",
       "userId": "105071312514438944624",
       "id": 4
+    },
+    {
+      "title": "Streaming component reuse",
+      "description": "Reuse of  the component",
+      "userId": "105071312514438944624",
+      "id": 5
     }
   ]
 }
