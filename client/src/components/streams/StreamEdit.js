@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchStream, editStream } from '../../actions';
@@ -24,7 +25,9 @@ class StreamEdit extends React.Component {
                 {/* See <StreamForm /> for the wrapping example */}
                 {/* InitialValues names MUST match the input field names from the form itself. name === name NOT names !== name */}
                 <StreamForm 
-                    initialValues = { this.props.stream }
+                // The lodash _.pick() function allows us to select what properties we want to pass from an object. In this case we are passing title and description from the this.props.stream object
+                // Useful to avoid any issues where the backend server does not want returning values that should not be edited (streamId and userId)
+                    initialValues = {_.pick(this.props.stream, 'title', 'description' )}
                     onSubmit = {this.onSubmit}
                 />
             </div>
