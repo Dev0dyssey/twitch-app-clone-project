@@ -17,8 +17,8 @@
       "id": 4
     },
     {
-      "title": "Streaming component reuse",
-      "description": "Reuse of  the component",
+      "title": "Changed with a PATCH request",
+      "description": "PATCH description",
       "userId": "105071312514438944624",
       "id": 5
     }

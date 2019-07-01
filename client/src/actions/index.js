@@ -51,8 +51,9 @@ export const fetchStream = (id) => async dispatch => {
 };
 
 // Receive the id of the stream and formValues holding the updates to the stream we want to make
+// .patch instead of .put request; allows us to keep other properties that are not being updated (in this case the userID)
 export const editStream = (id, formValues) => async dispatch => {
-    const response = await streams.put(`/streams/${id}`, formValues);
+    const response = await streams.patch(`/streams/${id}`, formValues);
 
     dispatch({ type: EDIT_STREAM, payload: response.data });
     history.push('/');
