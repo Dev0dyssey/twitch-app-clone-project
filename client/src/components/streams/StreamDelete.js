@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Modal from '../Modal';
 import history from '../../history';
-import { fetchStream } from '../../actions';
+import { fetchStream, deleteStream } from '../../actions';
 
 class StreamDelete extends React.Component {    
     componentDidMount() {
@@ -10,14 +11,20 @@ class StreamDelete extends React.Component {
     }
 
     renderActions() {
+        // Destructure the id from this.props.match.params.id
+        const { id } = this.props.match.params;
+
         // Helper method to assist with rendering action buttons as props on the <Modal /> component
         return (
             // Use of React fragments <></> to assist with styling of the <Modal /> component, as Semantic UI does not render the buttons layout correctly when using <div></div>
             // <></> Allows for the buttons to be evenly spaced even as the viewport size changes
             // Alternative way of writing the fragment; <React.Fragment></React.Fragment> used on code quality checkers that do not recognize <></> as valid syntax
             <React.Fragment>
-                <button className = "ui button negative">Delete</button>
-                <button className = "ui button">Cancel</button>
+                {/* Reason for arrow function; we do not want to invoke the Action Creator straight on component load; we instead wait for the onClick event handler to run */}
+                <button onClick = {() => this.props.deleteStream(id)} className = "ui button negative">Delete</button>
+                <Link to = "/" className = "ui button">
+                    Cancel
+                </Link>
             </React.Fragment>
         );
     }
@@ -48,4 +55,4 @@ const mapStateToProps = (state, ownProps) => {
     return {stream: state.streams[ownProps.match.params.id]}
 };
 
-export default connect(mapStateToProps, { fetchStream })(StreamDelete);
+export default connect(mapStateToProps, { fetchStream, deleteStream })(StreamDelete);

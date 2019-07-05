@@ -6,21 +6,27 @@
       "id": 1
     },
     {
-      "title": "Stream with UserId",
-      "description": "UserId description",
-      "userId": "105071312514438944624",
-      "id": 3
-    },
-    {
       "title": "Changed Title (Programmatic navigation)",
       "description": "New Changed Description",
       "id": 4
     },
     {
-      "title": "Changed with a PATCH request",
-      "description": "PATCH description",
+      "title": "Test Stream 3",
+      "description": "Test Stream Description 3",
       "userId": "105071312514438944624",
       "id": 5
+    },
+    {
+      "title": "Testing purposes Stream",
+      "description": "Description of Stream",
+      "userId": "105071312514438944624",
+      "id": 6
+    },
+    {
+      "title": "Look at the Stream",
+      "description": "Description!",
+      "userId": "105071312514438944624",
+      "id": 7
     }
   ]
 }
