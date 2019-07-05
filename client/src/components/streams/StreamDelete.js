@@ -21,20 +21,31 @@ class StreamDelete extends React.Component {
             </React.Fragment>
         );
     }
+
+    renderContent() {
+        if (!this.props.stream) {
+            return 'Are you sure you want to delete this stream?'
+        }
+
+        return `Are you sure you want to delete the stream with title: ${this.props.stream.title}`
+    }
+
     render() {
         return (
-            <div>
-                StreamDelete
-                <Modal 
-                    title = "Delete Stream"
-                    conent = "Are you sure you want to delete this stream?"
-                    actions = {this.renderActions()}
-                    // Using programmatic navigation we can direct the user to another page, allowing the modal to "disappear" when user click outside of its area
-                    onDismiss = {() => history.push('/')}
-                />
-            </div>
+            <Modal 
+                title = "Delete Stream"
+                conent = {this.renderContent()}
+                actions = {this.renderActions()}
+                // Using programmatic navigation we can direct the user to another page, allowing the modal to "disappear" when user click outside of its area
+                onDismiss = {() => history.push('/')}
+            />
         );
     }
 }
 
-export default connect(null, { fetchStream })(StreamDelete);
+// ownProps; allows us to access other properties not within the Redux store (state), such as this.props.match... which is coming from Redux Route
+const mapStateToProps = (state, ownProps) => {
+    return {stream: state.streams[ownProps.match.params.id]}
+};
+
+export default connect(mapStateToProps, { fetchStream })(StreamDelete);
