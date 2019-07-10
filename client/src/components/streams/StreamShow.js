@@ -24,6 +24,13 @@ class StreamShow extends React.Component {
         this.buildPlayer();
     }
 
+    // Clean up of any resources the Application has created
+    // Such as the video player that attempts to connect and show video even when user navigates away from the Stream page
+    // .destroy method tells the player to stop attempting to stream video and detach itself from the element we created inside the render() method
+    componentWillUnmount() {
+        this.player.destroy();
+    }
+
     buildPlayer() {
         if (this.player || !this.props.stream) {
             return;
